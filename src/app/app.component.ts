@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { COURSES } from 'src/db-data';
+import { Course } from './model/course';
+
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angularudemycourse';
+
+    courses = [...COURSES];
+    onCourseSelected(course:Course) {
+        console.log("App component - click event bubbled....",course);
+
+    }
+    trackCourse(index:number,course:Course){
+        return course.id;
+    }
 }

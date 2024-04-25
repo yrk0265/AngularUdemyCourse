@@ -3,9 +3,15 @@ import {
     Input,
     OnInit,
     Output,
-    EventEmitter
+    EventEmitter,
+    ViewChild,
+    ContentChild,
+    ElementRef,
+    ContentChildren,
+    AfterContentInit
 } from '@angular/core';
 import { Course } from 'src/app/model/course';
+import { CourseImageComponent } from '../course-image/course-image.component';
 
 
 @Component({
@@ -13,24 +19,13 @@ import { Course } from 'src/app/model/course';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css']
 })
-export class CourseCardComponent implements  OnInit {
-
-    @Input()
-    course:Course;
-
-    @Input()
-    cardIndex:number;
-
-    @Output()
-    courseSelected=new EventEmitter<Course>();
-      
+export class CourseCardComponent implements  OnInit ,AfterContentInit{
     constructor() {
     }
-    ngOnInit() {
-    }
+  
     onCourseViewed() {
       console.log("card component - button clicked ....");
-      this.courseSelected.emit(this.course);
+      this.courseEmitter.emit(this.course);
     }
     isImageVisible() {
        return this.course && this.course.iconUrl;
@@ -41,4 +36,29 @@ export class CourseCardComponent implements  OnInit {
     cardStyles(){
       return {'background-image':'url('+this.course.iconUrl+')'};
     }
+    ngAfterViewInit(){
+      console.log(this.image);
+    }
+    ngOnInit(): void {
+    }
+    ngAfterContentInit(): void {
+      console.log(this.image);
+    }
+    @Input()
+    course:Course;
+
+    @Input()
+    cardIndex:number;
+
+    @Output("courseSelected")
+    courseEmitter=new EventEmitter<Course>();
+
+    // @ContentChild('container')
+    // image;
+    @ContentChildren(CourseImageComponent)
+    image;
 }
+    
+    
+    
+

@@ -5,56 +5,23 @@
 
 </div>
 
-<div class="demo">
-        <div>Start Date : {{startDate | date:'MMM dd yyyy'}}</div>
-        <div>{{title | uppercase}}</div>
-        <div>{{price | number:'1.0'}}</div>
-        <div>{{price | currency}}</div>
-        <div>{{rate | percent}}</div>
-</div>
-<div *ngFor="let pair of course | keyvalue">
-        {{pair.key + ' ' + pair.value}}
-</div>
-<button (click)="onCourseEdited()">Edit Courses</button>
-<div class="courses" #container *ngIf="courses[0] as course">
-        <h1>Count : </h1>
-        <ng-template #blankImage let-courseName>
-                <p class="warn">{{courseName}}</p>
-                <img src="/assets/empty-image.jpg">
-        </ng-template>
-        
-        
-        <hr>
-        <hr>
-        <!-- <course-card *ngFor="let course of courses;index as i;first as isFirst;
-        last as isLast;
-        even as isEven;
-        odd as isOdd"
-         [class.is-first]="isFirst" 
-         [class.is-last]="isLast" 
-         (courseSelected)="onCourseSelected($event)"
-         [course]="courses[0]"
-         [cardIndex]="i+1">
-        </course-card> -->
-        <course-card #cardRef1 (courseSelected)="onCourseSelected($event)" [course]="courses[0]">
-                <div class="course-image" #courseImage> 
-                     <img width="300" alt="Angular Logo" [src]="course.iconUrl">
-                     <h5>Total Lessons : 5</h5>      
-                </div>
-                <course-image [src]="course.iconUrl"></course-image>  
-                <course-image [src]="courses[1].iconUrl"></course-image>  
-                <course-image [src]="courses[2].iconUrl"></course-image>  
-                <div class="course-description">
-                     {{course.longDescription}}
-                </div>
-                Edit Description : <textarea></textarea>
-        </course-card>
 
-        <course-card #cardRef1 (courseSelected)="onCourseSelected($event)" [course]="courses[1]">
-                <h5>Total Lessons : 10</h5>        
-        </course-card>
 
-        <!-- <course-card #cardRef2 (courseSelected)="onCourseSelected($event)" [course]="courses[1]"></course-card> -->
+<div class="courses" *ngIf="courses[0] as course">
+
+    <course-card
+            (courseSelected)="onCourseSelected($event)"
+                 [course]="course">
+
+        <course-image [src]="course.iconUrl"></course-image>
+
+        <div class="course-description">
+            {{ course.longDescription }}
+        </div>
+
+    </course-card>
+
+
 </div>
 
 
